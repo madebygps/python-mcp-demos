@@ -14,7 +14,7 @@
       "protocol": "http"
     },
     "6277": {
-      "label": "MCP Proxy API",
+      "label": "MCP Proxy Server",
       "onAutoForward": "silent",
       "protocol": "http"
     }
@@ -23,12 +23,17 @@
     "vscode": {
       "extensions": [
         "ms-python.python",
-        "ms-python.vscode-pylance"
+        "ms-python.vscode-pylance",
+        "github.copilot",
+        "github.copilot-chat"
       ],
       "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python"
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
       }
     }
   },
-  "remoteUser": "vscode"
+  "remoteUser": "vscode",
+  "containerEnv": {
+    "HOST": "0.0.0.0"
+  }
 }
