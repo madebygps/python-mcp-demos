@@ -84,61 +84,9 @@ To stop it, use `MCP: Stop Server` or the stop button in the MCP panel.
 
 The MCP Inspector is a browser-based visual testing & debugging tool for MCP servers. This repo’s dev container installs it globally during creation. It does NOT auto-launch; you start it when you need it.
 
-#### 1. Launch Inspector (UI only)
-```bash
-npx @modelcontextprotocol/inspector
-```
-By default it picks its standard client/proxy ports (e.g. 6274 / 6277). You’ll see them in the output.
-
-#### 2. Launch Wrapping the Expenses Server
-```bash
-npx @modelcontextprotocol/inspector -- uv run main.py
-```
-The `--` separates inspector options/env injections from the server command.
-
-#### 3. Custom Ports
-```bash
-CLIENT_PORT=8080 SERVER_PORT=9000 npx @modelcontextprotocol/inspector -- uv run main.py
-```
-
-#### 4. Pass Environment Variables to Server
-Use one or more `-e KEY=VALUE` tokens before `--`:
-```bash
-npx @modelcontextprotocol/inspector -e EXPENSES_FILE=/tmp/expenses.csv -- uv run main.py
-```
-
-#### 5. Wrap Other Servers
-```bash
-npx @modelcontextprotocol/inspector -- npx @modelcontextprotocol/server-filesystem /path/to/dir
-npx @modelcontextprotocol/inspector -- uvx mcp-server-git --repository ~/code/mcp/servers.git
-```
-
-#### 6. UI Features At A Glance
-* Resources: list & view content (`expenses.csv`).
-* Tools: execute `add_expense` with JSON inputs.
-* Prompts: explore `create_expense_prompt` argument handling.
-* Notifications: watch capability negotiation + server logs.
-
-#### 7. Edge Case Testing Ideas
-* Omit required fields (e.g. `amount`).
-* Invalid payment method (`bitcoin`).
-* Large numeric values for stress.
-* Rapid concurrent tool calls.
-
-#### 8. Quick Tips
-* Restart after changes: just rerun the same command.
-* Compare results with VS Code MCP panel.
-* Use custom ports if default clashes with other processes.
-* Keep proxy port private—avoid exposing to untrusted networks.
-
-#### 9. Next Improvements (Optional)
-* Add analytics MCP tools (monthly totals / category breakdown).
-* CI health check invoking handshake + sample tool call.
-* Configurable CSV path via env var.
-* Structured error contract & tests.
+npx -y @modelcontextprotocol/inspector .venv/bin/python -u main.py
 
 ---
-
 
 
 ## Contributing

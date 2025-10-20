@@ -25,6 +25,7 @@
         "ms-python.python",
         "ms-python.vscode-pylance",
         "github.copilot",
+        
         "github.copilot-chat"
       ],
       "settings": {
@@ -34,6 +35,8 @@
   },
   "remoteUser": "vscode",
   "containerEnv": {
-    "HOST": "0.0.0.0"
+    "HOST": "0.0.0.0",
+    "CLIENT_PORT": "6274",
+    "SERVER_PORT": "6277"
   }
 }
