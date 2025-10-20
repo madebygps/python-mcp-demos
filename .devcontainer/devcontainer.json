@@ -11,12 +11,14 @@
     "6274": {
       "label": "MCP Inspector UI",
       "onAutoForward": "notify",
-      "protocol": "http"
+      "protocol": "https",
+      "visibility": "public"
     },
     "6277": {
       "label": "MCP Proxy Server",
       "onAutoForward": "silent",
-      "protocol": "http"
+      "protocol": "https",
+      "visibility": "public"
     }
   },
   "customizations": {

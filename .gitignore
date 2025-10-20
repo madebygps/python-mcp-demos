@@ -60,6 +60,7 @@ Thumbs.db
 
 ### Node / inspector ephemeral (if used locally)
 node_modules/
+package-lock.json
 
 ### Misc caches
 .cache/

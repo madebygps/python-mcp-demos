@@ -82,9 +82,26 @@ To stop it, use `MCP: Stop Server` or the stop button in the MCP panel.
 
 #### MCP Inspector (Optional Visual & Protocol Testing)
 
-The MCP Inspector is a browser-based visual testing & debugging tool for MCP servers. This repo’s dev container installs it globally during creation. It does NOT auto-launch; you start it when you need it.
+The MCP Inspector is a browser-based visual testing & debugging tool for MCP servers.
 
-npx -y @modelcontextprotocol/inspector .venv/bin/python -u main.py
+**Quick Start (GitHub Codespaces):**
+
+1. Run the VS Code task: `Terminal > Run Task > Launch MCP Inspector` OR run:
+   ```bash
+   .devcontainer/launch-inspector.sh
+   ```
+
+2. The script will display the configuration needed. In the Inspector UI, configure:
+   - **Inspector Proxy Address**: `https://<your-codespace>-6277.app.github.dev` (shown in script output)
+   - **Command**: `uv`
+   - **Arguments**: `run main.py`
+
+**Manual Launch:**
+```bash
+DANGEROUSLY_OMIT_AUTH=true ALLOWED_ORIGINS="https://<your-codespace>-6274.app.github.dev" npx -y @modelcontextprotocol/inspector
+```
+
+**Note for Codespaces:** Port 6277 is automatically set to public visibility in the devcontainer configuration to avoid CORS issues.
 
 ---
 
