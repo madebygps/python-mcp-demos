@@ -1,0 +1,74 @@
+### Python build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+
+### Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+### Packaging / distribution
+build/
+dist/
+*.egg-info/
+.eggs/
+wheelhouse/
+
+### Logs & runtime output
+*.log
+
+### Test & coverage caches
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+*.py,cover
+htmlcov/
+.pytest_cache/
+.tox/
+.nox/
+
+### Type checking / lint caches
+.mypy_cache/
+.pyre/
+.pytype/
+dmypy.json
+.dmypy.json
+.ruff_cache/
+
+### Jupyter
+.ipynb_checkpoints/
+
+### OS / Editor noise
+.DS_Store
+Thumbs.db
+.idea/
+
+### VS Code (keep MCP config)
+.vscode/*
+!.vscode/mcp.json
+
+### Environment / secrets
+.env
+.env.*
+*.env
+
+### uv optional cache (uncomment if appears)
+# .uv-cache/
+
+### Node / inspector ephemeral (if used locally)
+node_modules/
+
+### Misc caches
+.cache/
+
+### Ignore temporary scratch files
+*.swp
+*.swo
+*~
+
+### If data/ contains generated runtime data you don't want to commit, uncomment:
+# data/expenses.csv
+
