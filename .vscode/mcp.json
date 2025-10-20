@@ -1,13 +1,14 @@
 {
-	"servers": {
-		"expenses": {
-			"type": "stdio",
-			"command": "uv",
-			"args": [
-				"run",
-				"main.py"
-			]
-		}
-	},
-	"inputs": []
+  "servers": {
+    "expenses-mcp": {
+      "type": "stdio",
+      "cwd": "${workspaceFolder}",
+      "command": ".venv/bin/python",
+      "args": [
+        "-u",
+        "main.py"
+      ]
+    }
+  },
+  "inputs": []
 }
