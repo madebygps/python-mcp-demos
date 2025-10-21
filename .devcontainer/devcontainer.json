@@ -6,10 +6,15 @@
     "ghcr.io/devcontainers/features/node:1": { "version": "lts" }
   },
   "postCreateCommand": "uv sync",
-  "forwardPorts": [6277],
+  "forwardPorts": [6277, 6274],
   "portsAttributes": {
     "6277": {
       "label": "MCP Proxy Server",
+      "visibility": "public",
+      "onAutoForward": "silent"
+    },
+    "6274": {
+      "label": "MCP Inspector UI",
       "visibility": "public",
       "onAutoForward": "silent"
     }
