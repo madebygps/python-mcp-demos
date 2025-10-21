@@ -11,8 +11,8 @@ if [ -n "${CODESPACE_NAME:-}" ]; then
     echo "   Inspector Proxy Address: $PROXY_URL"
     echo ""
     
-    ALLOWED_ORIGINS="$CODESPACE_URL" npx -y @modelcontextprotocol/inspector
+    ALLOWED_ORIGINS="$CODESPACE_URL" npx -y @modelcontextprotocol/inspector uv run main.py
 else
     echo "🚀 Launching MCP Inspector..."
-    npx -y @modelcontextprotocol/inspector
+    npx -y @modelcontextprotocol/inspector 
 fi

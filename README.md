@@ -52,9 +52,9 @@ Make sure the MCP server is running, then:
 
 The MCP Inspector is a browser-based visual testing and debugging tool for MCP servers.
 
-**Launch the inspector:**
+**Launch the inspector in GitHub Codespaces:**
 
-1. Run from the terminal:
+1. Run the following command in the terminal:
    ```bash
    .devcontainer/launch-inspector.sh
    ```
@@ -70,7 +70,26 @@ The MCP Inspector is a browser-based visual testing and debugging tool for MCP s
    - **Command**: `uv`
    - **Arguments**: `run main.py`
 
-5. To stop the Inspector, press `Ctrl+C` in the terminal
+**Launch the inspector inside of a Dev Container:**
+
+1. Run the following command in the terminal:
+   ```bash
+   HOST=0.0.0.0 DANGEROUSLY_OMIT_AUTH=true npx @modelcontextprotocol/inspector uv run main.py
+   ```
+2. Open `http://localhost:6274` in your browser
+3. The Inspector should now connect to your MCP server
+
+> **Note:** `HOST=0.0.0.0` is required in devcontainer environments to bind the Inspector to all network interfaces, allowing proper communication between the UI and proxy server. `DANGEROUSLY_OMIT_AUTH=true` disables authentication - only use in trusted development environments.
+
+**Launch the inspector locally without Dev Container:**
+
+1. Run the following command in the terminal:
+   ```bash
+   npx @modelcontextprotocol/inspector uv run main.py
+   ```
+2. The Inspector will automatically open in your browser at `http://localhost:6274`
+
+
 
 ---
 
