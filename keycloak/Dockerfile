@@ -1,6 +1,7 @@
 # Keycloak container with pre-built themes and realm import
 # Based on: https://www.keycloak.org/server/containers
-FROM quay.io/keycloak/keycloak:26.0 AS builder
+# Using nightly for testing DCR fix: https://github.com/keycloak/keycloak/pull/45309
+FROM quay.io/keycloak/keycloak:nightly AS builder
 
 # Copy the MCP realm configuration for import
 COPY keycloak/realm.json /opt/keycloak/data/import/mcp-realm.json
@@ -9,7 +10,7 @@ COPY keycloak/realm.json /opt/keycloak/data/import/mcp-realm.json
 RUN /opt/keycloak/bin/kc.sh build
 
 # Production image with pre-built themes
-FROM quay.io/keycloak/keycloak:26.0
+FROM quay.io/keycloak/keycloak:nightly
 
 # Copy built Keycloak with consistent theme cache hashes
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
