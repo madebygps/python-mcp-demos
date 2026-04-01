@@ -26,9 +26,17 @@ You have a few options for setting up this project. The quickest way to get star
 
 ### GitHub Codespaces
 
-You can run this project virtually by using GitHub Codespaces. Click the button to open a web-based VS Code instance in your browser:
+You can run this project virtually by using GitHub Codespaces. Click one of the buttons below to open a web-based VS Code instance in your browser:
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/pamelafox/python-mcp-demo)
+**Default (Azure OpenAI):**
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/python-mcp-demos)
+
+**Ollama (local models, requires 64GB+ memory):**
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/python-mcp-demos?devcontainer_path=.devcontainer/ollama/devcontainer.json)
+
+The Ollama Codespace pre-installs Ollama and pulls the `qwen3.5:0.6b` model, and copies `.env.sample.ollama` as your `.env` file. Note that the 64GB memory requirement will consume your Codespace quota faster.
 
 Once the Codespace is open, open a terminal window and continue with the deployment steps.
 
@@ -37,7 +45,7 @@ Once the Codespace is open, open a terminal window and continue with the deploym
 A related option is VS Code Dev Containers, which will open the project in your local VS Code using the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers):
 
 1. Start Docker Desktop (install it if not already installed)
-2. Open the project: [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/pamelafox/python-mcp-demo)
+2. Open the project: [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/python-mcp-demos)
 3. In the VS Code window that opens, once the project files show up (this may take several minutes), open a terminal window.
 4. Continue with the deployment steps.
 
