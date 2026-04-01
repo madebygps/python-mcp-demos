@@ -17,8 +17,6 @@ from fastmcp import FastMCP
 from opentelemetry.instrumentation.starlette import StarletteInstrumentor
 from starlette.responses import JSONResponse
 
-from opentelemetry_middleware import OpenTelemetryMiddleware
-
 RUNNING_IN_PRODUCTION = os.getenv("RUNNING_IN_PRODUCTION", "false").lower() == "true"
 
 if not RUNNING_IN_PRODUCTION:
@@ -37,7 +35,7 @@ if opentelemetry_platform == "appinsights" and os.getenv("APPLICATIONINSIGHTS_CO
     configure_azure_monitor()
 elif opentelemetry_platform == "logfire" and os.getenv("LOGFIRE_TOKEN"):
     logger.info("Setting up Logfire instrumentation")
-    logfire.configure(service_name="expenses-mcp", send_to_logfire=True)
+    logfire.configure(service_name=os.getenv("OTEL_SERVICE_NAME", "expenses-mcp"), send_to_logfire=True)
 
 # Cosmos DB configuration from environment variables
 AZURE_COSMOSDB_ACCOUNT = os.environ["AZURE_COSMOSDB_ACCOUNT"]
@@ -60,8 +58,8 @@ cosmos_db = cosmos_client.get_database_client(AZURE_COSMOSDB_DATABASE)
 cosmos_container = cosmos_db.get_container_client(AZURE_COSMOSDB_CONTAINER)
 logger.info(f"Connected to Cosmos DB: {AZURE_COSMOSDB_ACCOUNT}")
 
-# Create the MCP server with OpenTelemetry middleware
-mcp = FastMCP("Expenses Tracker", middleware=[OpenTelemetryMiddleware("ExpensesMCP")])
+# Create the MCP server (FastMCP has built-in OpenTelemetry instrumentation)
+mcp = FastMCP("Expenses Tracker")
 
 
 class PaymentMethod(Enum):

@@ -31,8 +31,6 @@ from rich.console import Console
 from rich.logging import RichHandler
 from starlette.responses import JSONResponse
 
-from opentelemetry_middleware import OpenTelemetryMiddleware
-
 RUNNING_IN_PRODUCTION = os.getenv("RUNNING_IN_PRODUCTION", "false").lower() == "true"
 
 if not RUNNING_IN_PRODUCTION:
@@ -66,7 +64,7 @@ if opentelemetry_platform == "appinsights" and os.getenv("APPLICATIONINSIGHTS_CO
     configure_azure_monitor()
 elif opentelemetry_platform == "logfire" and os.getenv("LOGFIRE_TOKEN"):
     logger.info("Setting up Logfire instrumentation")
-    logfire.configure(service_name="expenses-mcp", send_to_logfire=True)
+    logfire.configure(service_name=os.getenv("OTEL_SERVICE_NAME", "expenses-mcp"), send_to_logfire=True)
 
 # Configure Cosmos DB client
 if RUNNING_IN_PRODUCTION:
@@ -155,7 +153,7 @@ class UserAuthMiddleware(Middleware):
 
 
 # Create the MCP server
-mcp = FastMCP("Expenses Tracker", auth=auth, middleware=[OpenTelemetryMiddleware("ExpensesMCP"), UserAuthMiddleware()])
+mcp = FastMCP("Expenses Tracker", auth=auth, middleware=[UserAuthMiddleware()])
 
 
 class PaymentMethod(Enum):

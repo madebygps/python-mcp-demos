@@ -101,6 +101,10 @@ var baseEnv = [
     name: 'OPENTELEMETRY_PLATFORM'
     value: openTelemetryPlatform
   }
+  {
+    name: 'OTEL_SERVICE_NAME'
+    value: 'expenses-mcp'
+  }
 ]
 
 // Logfire environment variables (only added when configured)
