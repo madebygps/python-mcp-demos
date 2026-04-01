@@ -31,7 +31,7 @@ logger.setLevel(logging.INFO)
 otlp_endpoint = os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT")
 if otlp_endpoint:
     logger.info("Setting up Aspire Dashboard instrumentation (OTLP)")
-    resource = Resource.create({"service.name": os.getenv("OTEL_SERVICE_NAME", "expenses-mcp")})
+    resource = Resource.create({"service.name": "expenses-mcp"})
 
     tracer_provider = TracerProvider(resource=resource)
     tracer_provider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter(endpoint=otlp_endpoint)))

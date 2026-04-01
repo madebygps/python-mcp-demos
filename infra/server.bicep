@@ -15,7 +15,6 @@ param cosmosDbContainer string
 param cosmosDbUserContainer string
 param cosmosDbOAuthContainer string
 param applicationInsightsConnectionString string = ''
-param otelServiceName string = 'expenses-mcp'
 @allowed([
   'appinsights'
   'logfire'
@@ -101,10 +100,6 @@ var baseEnv = [
   {
     name: 'OPENTELEMETRY_PLATFORM'
     value: openTelemetryPlatform
-  }
-  {
-    name: 'OTEL_SERVICE_NAME'
-    value: otelServiceName
   }
 ]
 

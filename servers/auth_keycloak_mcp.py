@@ -60,7 +60,7 @@ if opentelemetry_platform == "appinsights" and os.getenv("APPLICATIONINSIGHTS_CO
     configure_azure_monitor()
 elif opentelemetry_platform == "logfire" and os.getenv("LOGFIRE_TOKEN"):
     logger.info("Setting up Logfire instrumentation")
-    logfire.configure(service_name=os.getenv("OTEL_SERVICE_NAME", "expenses-mcp"), send_to_logfire=True)
+    logfire.configure(service_name="expenses-mcp", send_to_logfire=True)
 
 # Configure Cosmos DB client
 if RUNNING_IN_PRODUCTION:
