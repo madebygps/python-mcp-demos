@@ -58,7 +58,6 @@ cosmos_db = cosmos_client.get_database_client(AZURE_COSMOSDB_DATABASE)
 cosmos_container = cosmos_db.get_container_client(AZURE_COSMOSDB_CONTAINER)
 logger.info(f"Connected to Cosmos DB: {AZURE_COSMOSDB_ACCOUNT}")
 
-# Create the MCP server (FastMCP has built-in OpenTelemetry instrumentation)
 mcp = FastMCP("Expenses Tracker")
 
 
