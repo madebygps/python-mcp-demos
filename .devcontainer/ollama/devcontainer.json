@@ -10,7 +10,7 @@
     "ghcr.io/azure/azure-dev/azd:latest": {},
     "ghcr.io/prulloac/devcontainer-features/ollama:1": {}
   },
-  "postCreateCommand": "uv sync && cp .env.sample.ollama .env && ollama pull qwen3.5:0.6b",
+  "postCreateCommand": "uv sync && cp .env.sample.ollama .env && ollama serve &>/dev/null & sleep 5 && ollama pull qwen3.5:0.6b",
   "forwardPorts": [6277, 6274],
   "portsAttributes": {
     "6277": {
