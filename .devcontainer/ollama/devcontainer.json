@@ -1,6 +1,8 @@
 {
   "name": "Python MCP Demos (Ollama)",
-  "image": "mcr.microsoft.com/devcontainers/python:3-3.13-bookworm",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "features": {
     "ghcr.io/va-h/devcontainers-features/uv:1": {},
     "ghcr.io/devcontainers/features/node:1": { "version": "lts" },
