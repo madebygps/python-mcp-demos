@@ -9,7 +9,7 @@ Based on the proposal in https://github.com/strawgate/py-key-value/issues/44
 
 import logging
 from collections.abc import Mapping, Sequence
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import Any, SupportsFloat
 
 from azure.cosmos.aio import ContainerProxy
@@ -28,7 +28,7 @@ class ManagedEntry:
         expires_at: datetime | None = None,
     ):
         self.value = value
-        self.created_at = created_at or datetime.now(timezone.utc)
+        self.created_at = created_at or datetime.now(UTC)
         self.expires_at = expires_at
 
     @property
@@ -36,14 +36,14 @@ class ManagedEntry:
         """Check if the entry has expired."""
         if self.expires_at is None:
             return False
-        return datetime.now(timezone.utc) > self.expires_at
+        return datetime.now(UTC) > self.expires_at
 
     @property
     def ttl_seconds(self) -> float | None:
         """Get remaining TTL in seconds, or None if no expiration."""
         if self.expires_at is None:
             return None
-        remaining = (self.expires_at - datetime.now(timezone.utc)).total_seconds()
+        remaining = (self.expires_at - datetime.now(UTC)).total_seconds()
         return max(0.0, remaining)
 
     def to_dict(self) -> dict[str, Any]:
@@ -189,7 +189,7 @@ class CosmosDBStore:
         collection = collection or self.default_collection
         doc_id = self._make_document_id(collection, key)
 
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         expires_at = None
         cosmos_ttl = None
 

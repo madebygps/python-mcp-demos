@@ -12,7 +12,7 @@ dependencies = [
     "azure-identity>=1.25.1",
     "msgraph-sdk>=1.0.0",
     "dotenv-azd>=0.1.0",
-    "langchain==1.0.0a5",
+    "langchain>=1.0.0",
     "langchain-openai>=1.0.1",
     "langchain-mcp-adapters>=0.1.11",
     "azure-ai-agents>=1.1.0",
@@ -28,12 +28,11 @@ dependencies = [
 [dependency-groups]
 dev = [
     "ruff>=0.8.0",
-    "pre-commit>=4.0.0",
+    "prek>=0.1.0",
 ]
 
 [tool.ruff]
 line-length = 120
-target-version = "py310"
+target-version = "py313"
 lint.select = ["E", "F", "I", "UP"]
 lint.ignore = ["D203"]
-

@@ -28,6 +28,7 @@ logger.setLevel(logging.INFO)
 
 # Configure OpenTelemetry tracing based on OPENTELEMETRY_PLATFORM env var
 # We don't support both at the same time due to potential conflicts with tracer providers
+os.environ.setdefault("OTEL_SERVICE_NAME", "expenses-mcp")
 settings.tracing_implementation = "opentelemetry"  # Ensure Azure SDK always uses OpenTelemetry tracing
 opentelemetry_platform = os.getenv("OPENTELEMETRY_PLATFORM", "none").lower()
 if opentelemetry_platform == "appinsights" and os.getenv("APPLICATIONINSIGHTS_CONNECTION_STRING"):

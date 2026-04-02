@@ -58,6 +58,7 @@ logger.setLevel(logging.INFO)
 settings.tracing_implementation = "opentelemetry"
 
 # Configure OpenTelemetry exporters based on OPENTELEMETRY_PLATFORM env var
+os.environ.setdefault("OTEL_SERVICE_NAME", "expenses-mcp")
 opentelemetry_platform = os.getenv("OPENTELEMETRY_PLATFORM", "none").lower()
 if opentelemetry_platform == "appinsights" and os.getenv("APPLICATIONINSIGHTS_CONNECTION_STRING"):
     logger.info("Setting up Azure Monitor instrumentation")
