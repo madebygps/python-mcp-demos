@@ -600,5 +600,6 @@ To use the deployed MCP server with GitHub Copilot Chat:
 ## Resources
 
 * [Video series: Python + MCP (December 2025)](https://techcommunity.microsoft.com/blog/azuredevcommunityblog/learn-how-to-build-mcp-servers-with-python-and-azure/4479402)
+* [Blog post: Using on-behalf-of flow for Entra-based MCP servers](https://techcommunity.microsoft.com/blog/azuredevcommunityblog/using-on-behalf-of-flow-for-entra-based-mcp-servers/4486760)
 * [MCP for beginners: Online tutorial](https://github.com/microsoft/mcp-for-beginners)
 * [Python MCP servers on Azure Functions](https://github.com/Azure-Samples/mcp-sdk-functions-hosting-python)
