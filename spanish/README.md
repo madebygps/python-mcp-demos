@@ -35,7 +35,7 @@ Puedes ejecutar este proyecto de forma virtual usando GitHub Codespaces. Haz cli
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/python-mcp-demos?devcontainer_path=.devcontainer/ollama/devcontainer.json)
 
-El Codespace de Ollama pre-instala Ollama y descarga el modelo `qwen3.5:9b`, y copia `.env.sample.ollama` como tu archivo `.env`. Ten en cuenta que el requisito de 64GB de memoria consumirá tu cuota de Codespace más rápido.
+El Codespace de Ollama pre-instala Ollama y descarga el modelo `gemma4:e4b`, y copia `.env.sample.ollama` como tu archivo `.env`. Ten en cuenta que el requisito de 64GB de memoria consumirá tu cuota de Codespace más rápido.
 
 Una vez abierto el Codespace, abre una terminal y continúa con los pasos de despliegue.
 
