@@ -36,7 +36,7 @@ if API_HOST == "azure":
     )
 elif API_HOST == "ollama":
     model = ChatOpenAI(
-        model=os.environ.get("OLLAMA_MODEL", "gemma4:e4b"),
+        model=os.environ.get("OLLAMA_MODEL", "gemma4:e2b"),
         base_url=os.environ.get("OLLAMA_ENDPOINT", "http://localhost:11434/v1"),
         api_key=SecretStr(os.getenv("OLLAMA_API_KEY", "no-key-needed")),
         use_responses_api=True,
@@ -92,7 +92,7 @@ async def main():
     agent = create_agent(
         model,
         tools=filtered_tools,
-        prompt="You help users research GitHub repositories. Search and analyze information.",
+        system_prompt="You help users research GitHub repositories. Search and analyze information.",
     )
 
     query = "Make a list of last 5 issues from the 'PrefectHQ/FastMCP' repository that discuss auth."

@@ -32,7 +32,7 @@ elif API_HOST == "ollama":
     client = OpenAIResponsesClient(
         base_url=os.environ.get("OLLAMA_ENDPOINT", "http://localhost:11434/v1"),
         api_key=os.getenv("OLLAMA_API_KEY", "no-key-needed"),
-        model_id=os.environ.get("OLLAMA_MODEL", "gemma4:e4b"),
+        model_id=os.environ.get("OLLAMA_MODEL", "gemma4:e2b"),
     )
 elif API_HOST == "openai":
     client = OpenAIResponsesClient(
@@ -58,7 +58,7 @@ async def http_mcp_example() -> None:
                 tools=[mcp_server],
             ) as agent,
         ):
-            query = "How to create an Azure storage account using az cli?"
+            query = "What are the available hosting options for a Python web app on Azure? Compare them briefly."
             result = await agent.run(query)
             print(result.text)
 

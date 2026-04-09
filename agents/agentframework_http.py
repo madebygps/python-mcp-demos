@@ -39,7 +39,7 @@ elif API_HOST == "ollama":
     client = OpenAIResponsesClient(
         base_url=os.environ.get("OLLAMA_ENDPOINT", "http://localhost:11434/v1"),
         api_key=os.getenv("OLLAMA_API_KEY", "no-key-needed"),
-        model_id=os.environ.get("OLLAMA_MODEL", "gemma4:e4b"),
+        model_id=os.environ.get("OLLAMA_MODEL", "gemma4:e2b"),
     )
 elif API_HOST == "openai":
     client = OpenAIResponsesClient(
