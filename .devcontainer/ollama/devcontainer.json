@@ -9,10 +9,10 @@
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/azure/azure-dev/azd:latest": {},
     "ghcr.io/prulloac/devcontainer-features/ollama:1": {
-      "pull": "qwen3.5:9b"
+      "pull": "gemma4:e2b"
     }
   },
-  "postCreateCommand": "uv sync && cp .env.sample.ollama .env",
+  "postCreateCommand": "uv sync && uv run prek install && cp .env.sample.ollama .env",
   "forwardPorts": [6277, 6274],
   "portsAttributes": {
     "6277": {
