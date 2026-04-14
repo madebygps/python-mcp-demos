@@ -1,6 +1,7 @@
 # Keycloak container with pre-built themes and realm import
 # Based on: https://www.keycloak.org/server/containers
-FROM quay.io/keycloak/keycloak:26.0 AS builder
+# Requires 26.6.0+ for DCR fix: https://github.com/keycloak/keycloak/issues/44403
+FROM quay.io/keycloak/keycloak:26.6.0 AS builder
 
 # Copy the MCP realm configuration for import
 COPY keycloak/realm.json /opt/keycloak/data/import/mcp-realm.json
@@ -9,7 +10,7 @@ COPY keycloak/realm.json /opt/keycloak/data/import/mcp-realm.json
 RUN /opt/keycloak/bin/kc.sh build
 
 # Production image with pre-built themes
-FROM quay.io/keycloak/keycloak:26.0
+FROM quay.io/keycloak/keycloak:26.6.0
 
 # Copy built Keycloak with consistent theme cache hashes
 COPY --from=builder /opt/keycloak/ /opt/keycloak/
@@ -24,5 +25,4 @@ ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]
 # --hostname-strict=false allows dynamic hostname resolution from proxy headers
 # --http-relative-path=/auth sets the base path so Keycloak serves all content under /auth/*
 # --import-realm imports the MCP realm on startup
-# --import-strategy=overwrite-existing ensures realm.json changes are applied even if the realm exists
-CMD ["start-dev", "--http-port=8080", "--proxy-headers=xforwarded", "--hostname-strict=false", "--http-relative-path=/auth", "--import-realm", "--import-strategy=overwrite-existing"]
+CMD ["start-dev", "--http-port=8080", "--proxy-headers=xforwarded", "--hostname-strict=false", "--http-relative-path=/auth", "--import-realm"]

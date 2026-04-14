@@ -19,9 +19,9 @@ from azure.identity.aio import DefaultAzureCredential, ManagedIdentityCredential
 from azure.monitor.opentelemetry import configure_azure_monitor
 from dotenv import load_dotenv
 from fastmcp import Context, FastMCP
+from fastmcp.server.auth.providers.keycloak import KeycloakAuthProvider
 from fastmcp.server.dependencies import get_access_token
 from fastmcp.server.middleware import Middleware, MiddlewareContext
-from keycloak_provider import KeycloakAuthProvider
 from opentelemetry.instrumentation.starlette import StarletteInstrumentor
 from opentelemetry.sdk.resources import Resource
 from rich.console import Console
@@ -77,7 +77,7 @@ cosmos_client = CosmosClient(
 cosmos_db = cosmos_client.get_database_client(os.environ["AZURE_COSMOSDB_DATABASE"])
 cosmos_container = cosmos_db.get_container_client(os.environ["AZURE_COSMOSDB_USER_CONTAINER"])
 
-# Configure Keycloak authentication using KeycloakAuthProvider with DCR support
+# Configure Keycloak authentication using FastMCP's built-in KeycloakAuthProvider
 KEYCLOAK_REALM_URL = os.environ["KEYCLOAK_REALM_URL"]
 if RUNNING_IN_PRODUCTION:
     keycloak_base_url = os.environ["KEYCLOAK_MCP_SERVER_BASE_URL"]
@@ -93,7 +93,7 @@ auth = KeycloakAuthProvider(
     audience=keycloak_audience,
 )
 logger.info(
-    "Using Keycloak DCR auth for server %s and realm %s (audience=%s)",
+    "Using Keycloak auth for server %s and realm %s (audience=%s)",
     keycloak_base_url,
     KEYCLOAK_REALM_URL,
     keycloak_audience,
