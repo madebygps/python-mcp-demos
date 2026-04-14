@@ -26,9 +26,17 @@ You have a few options for setting up this project. The quickest way to get star
 
 ### GitHub Codespaces
 
-You can run this project virtually by using GitHub Codespaces. Click the button to open a web-based VS Code instance in your browser:
+You can run this project virtually by using GitHub Codespaces. Click one of the buttons below to open a web-based VS Code instance in your browser:
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/pamelafox/python-mcp-demo)
+**Default (Azure OpenAI):**
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/python-mcp-demos)
+
+**Ollama (local models, requires 64GB+ memory):**
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Azure-Samples/python-mcp-demos?devcontainer_path=.devcontainer/ollama/devcontainer.json)
+
+The Ollama Codespace pre-installs Ollama and pulls the `gemma4:e2b` model, and copies `.env.sample.ollama` as your `.env` file. Note that the 64GB memory requirement will consume your Codespace quota faster.
 
 Once the Codespace is open, open a terminal window and continue with the deployment steps.
 
@@ -37,7 +45,7 @@ Once the Codespace is open, open a terminal window and continue with the deploym
 A related option is VS Code Dev Containers, which will open the project in your local VS Code using the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers):
 
 1. Start Docker Desktop (install it if not already installed)
-2. Open the project: [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/pamelafox/python-mcp-demo)
+2. Open the project: [![Open in Dev Containers](https://img.shields.io/static/v1?style=for-the-badge&label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/Azure-Samples/python-mcp-demos)
 3. In the VS Code window that opens, once the project files show up (this may take several minutes), open a terminal window.
 4. Continue with the deployment steps.
 
@@ -68,9 +76,8 @@ If you're not using one of the above options, then you'll need to:
    ```
 
 6. Edit `.env` with your API credentials. Choose one of the following providers by setting `API_HOST`:
-   - `github` - GitHub Models (requires `GITHUB_TOKEN`)
    - `azure` - Azure OpenAI (requires Azure credentials)
-   - `ollama` - Local Ollama instance
+   - `ollama` - Local Ollama instance with Responses API support
    - `openai` - OpenAI API (requires `OPENAI_API_KEY`)
 
 ## Run local MCP servers
@@ -202,10 +209,10 @@ This project includes example agents in the [`agents/`](agents/) directory that 
 
 | File | Description |
 | ---- | ----------- |
-| [agents/agentframework_learn.py](agents/agentframework_learn.py) | Microsoft Agent Framework integration with MCP |
 | [agents/agentframework_http.py](agents/agentframework_http.py) | Microsoft Agent Framework integration with local Expenses MCP server |
-| [agents/langchainv1_http.py](agents/langchainv1_http.py) | LangChain agent with MCP integration |
-| [agents/langchainv1_github.py](agents/langchainv1_github.py) | LangChain tool filtering demo with GitHub MCP (requires `GITHUB_TOKEN`) |
+| [agents/agentframework_learn.py](agents/agentframework_learn.py) | Microsoft Agent Framework integration with remote Learn MCP server |
+| [agents/langchainv1_http.py](agents/langchainv1_http.py) | LangChain agent with local Expenses MCP server |
+| [agents/langchainv1_github.py](agents/langchainv1_github.py) | LangChain tool-filtering agent with remote GitHub MCP (requires `GITHUB_TOKEN`) |
 
 **To run an agent:**
 
@@ -280,7 +287,7 @@ Pricing varies per region and usage, so it isn't possible to predict exact costs
 
 You can try the [Azure pricing calculator](https://azure.com/e/3987c81282c84410b491d28094030c9a) for the resources:
 
-- **Azure OpenAI Service**: S0 tier, GPT-4o-mini model. Pricing is based on token count. [Pricing](https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/)
+- **Azure OpenAI Service**: S0 tier, GPT-5.2 model. Pricing is based on token count. [Pricing](https://azure.microsoft.com/pricing/details/cognitive-services/openai-service/)
 - **Azure Container Apps**: Consumption tier. [Pricing](https://azure.microsoft.com/pricing/details/container-apps/)
 - **Azure Container Registry**: Standard tier. [Pricing](https://azure.microsoft.com/pricing/details/container-registry/)
 - **Azure Cosmos DB**: Serverless tier. [Pricing](https://azure.microsoft.com/pricing/details/cosmos-db/)
@@ -593,5 +600,6 @@ To use the deployed MCP server with GitHub Copilot Chat:
 ## Resources
 
 * [Video series: Python + MCP (December 2025)](https://techcommunity.microsoft.com/blog/azuredevcommunityblog/learn-how-to-build-mcp-servers-with-python-and-azure/4479402)
+* [Blog post: Using on-behalf-of flow for Entra-based MCP servers](https://techcommunity.microsoft.com/blog/azuredevcommunityblog/using-on-behalf-of-flow-for-entra-based-mcp-servers/4486760)
 * [MCP for beginners: Online tutorial](https://github.com/microsoft/mcp-for-beginners)
 * [Python MCP servers on Azure Functions](https://github.com/Azure-Samples/mcp-sdk-functions-hosting-python)

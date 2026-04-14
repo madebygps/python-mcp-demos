@@ -27,11 +27,10 @@ from fastmcp.server.middleware import Middleware, MiddlewareContext
 from key_value.aio.stores.memory import MemoryStore
 from msal import ConfidentialClientApplication, TokenCache
 from opentelemetry.instrumentation.starlette import StarletteInstrumentor
+from opentelemetry.sdk.resources import Resource
 from rich.console import Console
 from rich.logging import RichHandler
 from starlette.responses import JSONResponse
-
-from opentelemetry_middleware import OpenTelemetryMiddleware
 
 RUNNING_IN_PRODUCTION = os.getenv("RUNNING_IN_PRODUCTION", "false").lower() == "true"
 
@@ -63,7 +62,7 @@ settings.tracing_implementation = "opentelemetry"
 opentelemetry_platform = os.getenv("OPENTELEMETRY_PLATFORM", "none").lower()
 if opentelemetry_platform == "appinsights" and os.getenv("APPLICATIONINSIGHTS_CONNECTION_STRING"):
     logger.info("Setting up Azure Monitor instrumentation")
-    configure_azure_monitor()
+    configure_azure_monitor(resource=Resource.create({"service.name": "expenses-mcp"}))
 elif opentelemetry_platform == "logfire" and os.getenv("LOGFIRE_TOKEN"):
     logger.info("Setting up Logfire instrumentation")
     logfire.configure(service_name="expenses-mcp", send_to_logfire=True)
@@ -155,7 +154,7 @@ class UserAuthMiddleware(Middleware):
 
 
 # Create the MCP server
-mcp = FastMCP("Expenses Tracker", auth=auth, middleware=[OpenTelemetryMiddleware("ExpensesMCP"), UserAuthMiddleware()])
+mcp = FastMCP("Expenses Tracker", auth=auth, middleware=[UserAuthMiddleware()])
 
 
 class PaymentMethod(Enum):

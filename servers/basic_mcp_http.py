@@ -8,9 +8,7 @@ from typing import Annotated
 
 from dotenv import load_dotenv
 from fastmcp import FastMCP
-from fastmcp.server.middleware import Middleware
-
-from opentelemetry_middleware import OpenTelemetryMiddleware, configure_aspire_dashboard
+from otel_aspire import configure_aspire_dashboard
 
 load_dotenv(override=True)
 
@@ -18,18 +16,18 @@ logging.basicConfig(level=logging.WARNING, format="%(asctime)s - %(message)s")
 logger = logging.getLogger("ExpensesMCP")
 logger.setLevel(logging.INFO)
 
-middleware: list[Middleware] = []
-if os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT"):
+# Configure OpenTelemetry SDK for Aspire Dashboard (OTLP gRPC)
+otlp_endpoint = os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT")
+if otlp_endpoint:
     logger.info("Setting up Aspire Dashboard instrumentation (OTLP)")
-    configure_aspire_dashboard(service_name="expenses-mcp")
-    middleware = [OpenTelemetryMiddleware(tracer_name="expenses.mcp")]
+    configure_aspire_dashboard(endpoint=otlp_endpoint)
 
 
 SCRIPT_DIR = Path(__file__).parent
 EXPENSES_FILE = SCRIPT_DIR / "expenses.csv"
 
 
-mcp = FastMCP("Expenses Tracker", middleware=middleware)
+mcp = FastMCP("Expenses Tracker")
 
 
 class PaymentMethod(Enum):

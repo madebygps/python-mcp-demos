@@ -1,7 +1,8 @@
 """LangChain MCP Tool Filtering Example
 
 Demonstrates how to filter MCP tools to create safe, focused agents.
-Shows filtering for read-only research agent using GitHub MCP server.
+Shows filtering for a read-only research agent using the GitHub MCP server
+with a Responses-compatible model host.
 """
 
 import asyncio
@@ -21,7 +22,7 @@ from rich.panel import Panel
 load_dotenv(override=True)
 
 # Configure model
-API_HOST = os.getenv("API_HOST", "github")
+API_HOST = os.getenv("API_HOST", "azure")
 if API_HOST == "azure":
     token_provider = azure.identity.get_bearer_token_provider(
         azure.identity.DefaultAzureCredential(),
@@ -31,19 +32,23 @@ if API_HOST == "azure":
         model=os.environ.get("AZURE_OPENAI_CHAT_DEPLOYMENT"),
         base_url=os.environ["AZURE_OPENAI_ENDPOINT"] + "/openai/v1/",
         api_key=token_provider,
-    )
-elif API_HOST == "github":
-    model = ChatOpenAI(
-        model=os.getenv("GITHUB_MODEL", "gpt-4o"),
-        base_url="https://models.inference.ai.azure.com",
-        api_key=SecretStr(os.environ["GITHUB_TOKEN"]),
+        use_responses_api=True,
     )
 elif API_HOST == "ollama":
     model = ChatOpenAI(
-        model=os.environ.get("OLLAMA_MODEL", "llama3.1"),
+        model=os.environ.get("OLLAMA_MODEL", "gemma4:e2b"),
         base_url=os.environ.get("OLLAMA_ENDPOINT", "http://localhost:11434/v1"),
-        api_key=SecretStr("none"),
+        api_key=SecretStr(os.getenv("OLLAMA_API_KEY", "no-key-needed")),
+        use_responses_api=True,
     )
+elif API_HOST == "openai":
+    model = ChatOpenAI(
+        model=os.getenv("OPENAI_MODEL", "gpt-5.2"),
+        api_key=SecretStr(os.environ["OPENAI_API_KEY"]),
+        use_responses_api=True,
+    )
+else:
+    raise ValueError(f"Unsupported API_HOST '{API_HOST}'. Use one of: azure, ollama, openai.")
 
 console = Console()
 
@@ -87,15 +92,15 @@ async def main():
     agent = create_agent(
         model,
         tools=filtered_tools,
-        prompt="You help users research GitHub repositories. Search and analyze information.",
+        system_prompt="You help users research GitHub repositories. Search and analyze information.",
     )
 
-    query = "Find 5 popular Python MCP server repositories and describe in a bulleted list."
+    query = "Make a list of last 5 issues from the 'PrefectHQ/FastMCP' repository that discuss auth."
     rprint(f"[bold]Query:[/bold] {query}\n")
 
     try:
         result = await agent.ainvoke({"messages": [HumanMessage(content=query)]})
-        rprint(f"[bold green]Result:[/bold green]\n{result['messages'][-1].content}\n")
+        rprint(f"[bold green]Result:[/bold green]\n{result['messages'][-1].text}\n")
     except Exception as e:
         rprint(f"[bold red]Error:[/bold red] {str(e)}\n")
 

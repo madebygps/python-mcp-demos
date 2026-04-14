@@ -1,13 +1,18 @@
 {
-  "name": "Python MCP Demos",
-  "image": "mcr.microsoft.com/devcontainers/python:3-3.13-bookworm",
+  "name": "Python MCP Demos (Ollama)",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "features": {
     "ghcr.io/va-h/devcontainers-features/uv:1": {},
     "ghcr.io/devcontainers/features/node:1": { "version": "lts" },
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/azure/azure-dev/azd:latest": {}
+    "ghcr.io/azure/azure-dev/azd:latest": {},
+    "ghcr.io/prulloac/devcontainer-features/ollama:1": {
+      "pull": "gemma4:e2b"
+    }
   },
-  "postCreateCommand": "uv sync && uv run prek install",
+  "postCreateCommand": "uv sync && uv run prek install && cp .env.sample.ollama .env",
   "forwardPorts": [6277, 6274],
   "portsAttributes": {
     "6277": {
@@ -33,6 +38,9 @@
         "chat.mcp.autostart": "never"
       }
     }
+  },
+  "hostRequirements": {
+    "memory": "64gb"
   },
   "remoteUser": "vscode"
 }

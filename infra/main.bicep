@@ -112,8 +112,8 @@ resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 
 var prefix = '${name}-${resourceToken}'
 
-var openAiDeploymentName = 'gpt-4o-mini'
-var openAiModelName = 'gpt-4o-mini'
+var openAiDeploymentName = 'gpt-5.2'
+var openAiModelName = 'gpt-5.2'
 
 // Cosmos DB configuration
 var cosmosDbDatabaseName = 'expenses-database'
@@ -150,7 +150,7 @@ module openAi 'br/public:avm/res/cognitive-services/account:0.7.2' = {
         model: {
           format: 'OpenAI'
           name: openAiModelName
-          version: '2024-07-18'
+          version: '2025-12-11'
         }
         sku: {
           name: 'GlobalStandard'

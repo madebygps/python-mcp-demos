@@ -24,7 +24,7 @@ load_dotenv(override=True)
 MCP_SERVER_URL = os.getenv("MCP_SERVER_URL", "http://localhost:8000/mcp/")
 
 # Configure language model based on API_HOST
-API_HOST = os.getenv("API_HOST", "github")
+API_HOST = os.getenv("API_HOST", "azure")
 
 if API_HOST == "azure":
     token_provider = azure.identity.get_bearer_token_provider(
@@ -34,21 +34,23 @@ if API_HOST == "azure":
         model=os.environ.get("AZURE_OPENAI_CHAT_DEPLOYMENT"),
         base_url=os.environ["AZURE_OPENAI_ENDPOINT"] + "/openai/v1/",
         api_key=token_provider,
-    )
-elif API_HOST == "github":
-    base_model = ChatOpenAI(
-        model=os.getenv("GITHUB_MODEL", "gpt-4o"),
-        base_url="https://models.inference.ai.azure.com",
-        api_key=SecretStr(os.environ["GITHUB_TOKEN"]),
+        use_responses_api=True,
     )
 elif API_HOST == "ollama":
     base_model = ChatOpenAI(
-        model=os.environ.get("OLLAMA_MODEL", "llama3.1"),
+        model=os.environ.get("OLLAMA_MODEL", "gemma4:e2b"),
         base_url=os.environ.get("OLLAMA_ENDPOINT", "http://localhost:11434/v1"),
-        api_key=SecretStr(os.environ["OLLAMA_API_KEY"]),
+        api_key=SecretStr(os.getenv("OLLAMA_API_KEY", "no-key-needed")),
+        use_responses_api=True,
+    )
+elif API_HOST == "openai":
+    base_model = ChatOpenAI(
+        model=os.getenv("OPENAI_MODEL", "gpt-5.2"),
+        api_key=SecretStr(os.environ["OPENAI_API_KEY"]),
+        use_responses_api=True,
     )
 else:
-    base_model = ChatOpenAI(model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"))
+    raise ValueError(f"Unsupported API_HOST '{API_HOST}'. Use one of: azure, ollama, openai.")
 
 
 async def run_agent() -> None:
@@ -79,7 +81,7 @@ async def run_agent() -> None:
     )
 
     # Display result
-    final_response = response["messages"][-1].content
+    final_response = response["messages"][-1].text
     print(final_response)
 
 
