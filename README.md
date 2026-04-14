@@ -394,7 +394,7 @@ This project supports deploying with OAuth 2.0 authentication using Keycloak as 
 
 | Component | Description |
 | --------- | ----------- |
-| **Keycloak Container App** | Keycloak 26.0 with pre-configured realm |
+| **Keycloak Container App** | Keycloak 26.6.0 with pre-configured realm |
 | **HTTP Route Configuration** | Rule-based routing: `/auth/*` → Keycloak, `/*` → MCP Server |
 | **OAuth-protected MCP Server** | FastMCP with JWT validation against Keycloak's JWKS endpoint |
 

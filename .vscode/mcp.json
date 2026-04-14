@@ -27,8 +27,11 @@
 				"0.0.0.0:5678",
 				"servers/basic_mcp_stdio.py"
 			]
+		},
+		"keycloak-deployed": {
+			"url": "https://mcproutes.thankfulmeadow-cebb0cbb.eastus2.azurecontainerapps.io/mcp",
+			"type": "http"
 		}
-
 	},
 	"inputs": []
 }
